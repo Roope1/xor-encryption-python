@@ -10,18 +10,24 @@ def getChar(charset, index):
     return charset[index]
         
 def encrypt(string, key = 21):
+    encrypted_string = ""
     print()
     key = int(key)
     charset = "0abcdefghijklmnopqrstuvwxyzåäö! "
-    print("og, bin_xor, xor_char")
+    print("original, original binary ==> encrypted binary, encrypted character")
     for character in string:
         index = getIndex(charset,character)
         encrypted = index^key
         binary_encrypted = bin(encrypted)[2:]
         while(len(str(binary_encrypted)) != 5):
             binary_encrypted = "0" + str(binary_encrypted) 
+        index_bin = str(bin(index)[2:])
+        while(len(index_bin) != 5):
+            index_bin = "0" + index_bin
         char = getChar(charset, encrypted)
-        print(character, binary_encrypted, char)
+        print(character, index_bin + " ==>", binary_encrypted, char)
+        encrypted_string += char
+    print(f"'{string}' xor-encrypted with key {key} is '{encrypted_string}'")
 
 def decrypt(encrypted, key = 21):
     print()
